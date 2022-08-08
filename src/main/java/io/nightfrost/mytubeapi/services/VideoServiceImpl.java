@@ -29,11 +29,11 @@ public class VideoServiceImpl implements VideoService {
 				throw new VideoNotFoundException();
 			}
 		} catch (Exception e) {
-			System.out.println("Retrieval of video from database failed, returning empty video object. See stack trace...");
+			System.out.println(
+					"Retrieval of video from database failed, returning empty video object. See stack trace...");
 			System.out.println(e.getMessage());
 			return returnVideo;
 		}
-		
 	}
 
 	@Override
