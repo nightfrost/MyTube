@@ -5,8 +5,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import io.nightfrost.mytubeapi.models.Video;
 import io.nightfrost.mytubeapi.repositories.VideoRepository;
-import io.nightfrost.mytubeapi.services.VideoService;
-import io.nightfrost.mytubeapi.services.VideoServiceImpl;
 
 import static org.mockito.Mockito.*;
 
