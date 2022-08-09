@@ -10,9 +10,11 @@ import io.nightfrost.mytubeapi.models.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
-	User findByUsername(String username);
+	User getByUsername(String username);
 	
 	boolean existsByUsername(String username);
+	
+	boolean existsByEmail(String email);
 	
 	@Query(nativeQuery = true, value = "SELECT username FROM user")
 	List<String> getAllUsernames();
