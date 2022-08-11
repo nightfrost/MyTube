@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User updateUser(Long id, User newUser) {
+	public String updateUser(Long id, User newUser) {
 		User returnUser = null;
 		try {
 			if ((returnUser = userRepository.getReferenceById(id)) != null) {
