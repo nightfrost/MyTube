@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String updateUser(Long id, User newUser) {
+	public User updateUser(Long id, User newUser) {
 		User returnUser = null;
 		try {
 			if ((returnUser = userRepository.getReferenceById(id)) != null) {
@@ -91,16 +91,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteUser(Long id) {
+	public String deleteUser(Long id) {
 		try {
 			if (userRepository.existsById(id)) {
 				userRepository.deleteById(id);
-			} else {
+				
+				return userRepository.existsById(id) ? "User not deleted..." : "User with ID: " + id.toString() + " deleted.";
+			} else {				
 				throw new UserNotFoundException();
 			}
 		} catch (Exception e) {
 			System.out.println("Deleting user failed. Returning empty object. See stack trace.");
 			System.out.println(e.getMessage());
+			return userRepository.existsById(id) ? "User not deleted..." : "User with ID: " + id.toString() + " deleted.";
 		}
 	}
 
