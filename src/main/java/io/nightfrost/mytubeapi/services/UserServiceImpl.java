@@ -95,7 +95,6 @@ public class UserServiceImpl implements UserService {
 		try {
 			if (userRepository.existsById(id)) {
 				userRepository.deleteById(id);
-				
 				return userRepository.existsById(id) ? "User not deleted..." : "User with ID: " + id.toString() + " deleted.";
 			} else {				
 				throw new UserNotFoundException();
