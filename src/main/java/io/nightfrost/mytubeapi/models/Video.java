@@ -1,6 +1,7 @@
 package io.nightfrost.mytubeapi.models;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -21,7 +22,19 @@ public class Video {
 
 	@Lob
 	private byte[] data;
+	
+	/*
+	 * One Video has Many Comments
+	 * NOT owning side.
+	 */
+	@OneToMany(mappedBy = "comment")
+	private List<Comment> comments;
 
+	public Video(String name, byte[] bytes) {
+		this.name = name;
+		this.data = bytes;
+	}
+	
 	/**
 	 * @return Returns true or false, depending on if ALL fields hold data.
 	 */
@@ -38,10 +51,5 @@ public class Video {
 			}
 		}
 		return true;
-	}
-
-	public Video(String name, byte[] bytes) {
-		this.name = name;
-		this.data = bytes;
 	}
 }

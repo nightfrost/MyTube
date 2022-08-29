@@ -3,12 +3,14 @@ package io.nightfrost.mytubeapi.models;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.Period;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import lombok.*;
@@ -57,6 +59,9 @@ public class User {
 	
 	@Column(nullable = false)
 	private boolean enabled;
+	
+	@OneToMany(mappedBy = "comment")
+	private List<Comment> comments;
 	
 	/**
 	 * <p> Method used to calculate a users age using the DOB field.
