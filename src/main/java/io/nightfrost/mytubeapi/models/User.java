@@ -63,6 +63,22 @@ public class User {
 	@OneToMany(mappedBy = "comment")
 	private List<Comment> comments;
 	
+	public User(long id, String firstName, String lastName, String username, String password, String email,
+			String phone, Date dob, String nationality, int age, Timestamp createdAt, boolean enabled) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.phone = phone;
+		this.dob = dob;
+		this.nationality = nationality;
+		this.age = age;
+		this.createdAt = createdAt;
+		this.enabled = enabled;
+	}
+	
 	/**
 	 * <p> Method used to calculate a users age using the DOB field.
 	 * 

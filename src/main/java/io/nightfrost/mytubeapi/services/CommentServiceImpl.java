@@ -104,8 +104,18 @@ public class CommentServiceImpl implements CommentService{
 
 	@Override
 	public String deleteComment(long id) {
-		// TODO: Implement delete cascade for user and video...
-		return null;
+		try {
+			if (commentRepository.existsById(id)) {
+				commentRepository.deleteById(id);
+				return commentRepository.existsById(id) ? "Comment not deleted." : "Comment with ID: " + id + " deleted.";
+			} else {
+				throw new CommentNotFoundException();
+			}
+		} catch (Exception e) {
+			System.out.println("Saving user failed. Returning empty object. See stack trace.");
+			System.out.println(e.getMessage());
+			return null;
+		}
 	}
 
 }
