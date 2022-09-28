@@ -62,27 +62,25 @@ public class CommentServiceImplTest {
 		List<Comment> expected = List.of(new Comment(comment_id, body, likes, dislikes,video, user, isPinned, createdAtComment, updatedAt),
 				new Comment(comment_id, body, likes, dislikes,video, user, isPinned, createdAtComment, updatedAt));
 		List<Comment> actual = commentService.getAllCommentsByVideoId(comment_id);
-		
-		
 	}
 	
 	@Test
 	public void getCommentById() {
-		
+		//TODO implement
 	}
 	
 	@Test
 	public void addComment() {
-		
+		//TODO implement
 	}
 	
 	@Test
 	public void updateComment() {
-		
+		//TODO implement
 	}
 	
 	@Test
 	public void deleteComment() {
-		
+		//TODO implement
 	}
 }
