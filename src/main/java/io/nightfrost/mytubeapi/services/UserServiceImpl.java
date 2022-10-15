@@ -75,6 +75,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			if ((returnUser = userRepository.getReferenceById(id)) != null) {
 				returnUser = (User) HelperService.partialUpdate(returnUser, newUser);
+				userRepository.saveAndFlush(returnUser);
 				return returnUser;
 			} else {
 				throw new UserNotFoundException();

@@ -1,8 +1,11 @@
 package io.nightfrost.mytubeapi.models;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +24,20 @@ public class Video {
 
 	@Lob
 	private byte[] data;
+	
+	/*
+	 * One Video has Many Comments
+	 * NOT owning side.
+	 */
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "video", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("video")
+	private List<Comment> comments;
 
+	public Video(String name, byte[] bytes) {
+		this.name = name;
+		this.data = bytes;
+	}
+	
 	/**
 	 * @return Returns true or false, depending on if ALL fields hold data.
 	 */
@@ -38,10 +54,5 @@ public class Video {
 			}
 		}
 		return true;
-	}
-
-	public Video(String name, byte[] bytes) {
-		this.name = name;
-		this.data = bytes;
 	}
 }

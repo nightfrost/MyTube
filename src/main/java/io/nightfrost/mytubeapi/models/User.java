@@ -3,13 +3,19 @@ package io.nightfrost.mytubeapi.models;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.Period;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.*;
 
@@ -57,6 +63,26 @@ public class User {
 	
 	@Column(nullable = false)
 	private boolean enabled;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("user")
+	private List<Comment> comments;
+	
+	public User(long id, String firstName, String lastName, String username, String password, String email,
+			String phone, Date dob, String nationality, int age, Timestamp createdAt, boolean enabled) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.phone = phone;
+		this.dob = dob;
+		this.nationality = nationality;
+		this.age = age;
+		this.createdAt = createdAt;
+		this.enabled = enabled;
+	}
 	
 	/**
 	 * <p> Method used to calculate a users age using the DOB field.
