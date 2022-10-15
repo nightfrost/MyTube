@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -27,7 +29,8 @@ public class Video {
 	 * One Video has Many Comments
 	 * NOT owning side.
 	 */
-	@OneToMany(mappedBy = "comment")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "video", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("video")
 	private List<Comment> comments;
 
 	public Video(String name, byte[] bytes) {

@@ -11,7 +11,7 @@ import io.nightfrost.mytubeapi.models.Comment;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long>{
 	
-	@Query(value = "SELECT *"
+	@Query(nativeQuery = true, value = "SELECT *"
 			+ "FROM comment"
 			+ "WHERE video_id = ?1")
 	List<Comment> getCommentsByVideoId(long videoId);
