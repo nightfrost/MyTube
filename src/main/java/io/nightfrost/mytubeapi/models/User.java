@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.Period;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -66,7 +67,11 @@ public class User {
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("user")
-	private List<Comment> comments;
+	private Set<Comment> comments;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("user")
+	private Set<Video> videos;
 	
 	public User(long id, String firstName, String lastName, String username, String password, String email,
 			String phone, Date dob, String nationality, int age, Timestamp createdAt, boolean enabled) {

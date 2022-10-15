@@ -2,6 +2,7 @@ package io.nightfrost.mytubeapi.models;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -31,7 +32,12 @@ public class Video {
 	 */
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "video", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("video")
-	private List<Comment> comments;
+	private Set<Comment> comments;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("video")
+	private User user;
 
 	public Video(String name, byte[] bytes) {
 		this.name = name;
