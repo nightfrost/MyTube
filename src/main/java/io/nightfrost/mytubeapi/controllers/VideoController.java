@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import io.nightfrost.mytubeapi.services.VideoService;
+import io.nightfrost.mytubeapi.services.VideoServiceImpl;
 import lombok.AllArgsConstructor;
 
 @RestController

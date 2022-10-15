@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.*;
@@ -60,6 +61,7 @@ public class User {
 	private int age;
 	
 	@Column(nullable = false)
+	@JsonFormat(pattern="yyyy-mm-dd hh:mm:ss", timezone="Europe/Zagreb")
 	private Timestamp createdAt;
 	
 	@Column(nullable = false)
