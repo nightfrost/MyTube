@@ -1,10 +1,14 @@
 package io.nightfrost.mytubeapi.models;
 
-import java.time.OffsetDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -19,48 +24,35 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@NoArgsConstructor
+@Entity
 @AllArgsConstructor
-public class Comment {
+@NoArgsConstructor
+public class Playlist {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@Column(columnDefinition = "LONGTEXT", nullable = false)
-	private String body;
-	
 	@Basic
-	private int likes;
-	
-	@Basic
-	private int dislikes;
+	@Column(length = 75, nullable = false)
+	private String playlistName;
 	
 	/*
-	 * Many Comments to One Video.
-	 * This is the owning side.
+	 * @Basic
+	 * 
+	 * @ElementCollection(targetClass = Long.class)
+	 * 
+	 * @CollectionTable(name = "video", joinColumns
+	 * = @JoinColumn(referencedColumnName = "id")) private Set<Video> videos;
 	 */
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "video_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("comment")
-	private Video video;
 	
-	/*
-	 * Many Comments to One User
-	 */
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "playlist", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("video")
+	private Set<Video> videos;
+	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("comment")
+    @JsonIgnoreProperties("playlist")
 	private User user;
-	
-	@Basic
-	private boolean isPinned;
-	
-	@Basic
-	private OffsetDateTime createdAt;
-	
-	@Basic
-	private OffsetDateTime updatedAt;
 }

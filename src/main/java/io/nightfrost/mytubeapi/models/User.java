@@ -42,7 +42,7 @@ public class User {
 	@Column(length = 50, nullable = false, unique = true)
 	private String username;
 	
-	@Column(length = 255, nullable = false)
+	@Column(columnDefinition = "LONGTEXT", nullable = false)
 	private String password;
 	
 	@Column(length = 150, nullable = false, unique = true)
@@ -54,7 +54,7 @@ public class User {
 	@Column(nullable = false)
 	private Date dob;
 	
-	@Column(length = 100, nullable = false)
+	@Column(length = 25, nullable = false)
 	private String nationality;
 	
 	@Transient
@@ -74,6 +74,10 @@ public class User {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("user")
 	private Set<Video> videos;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("user")
+	private Set<Playlist> playlists;
 	
 	public User(long id, String firstName, String lastName, String username, String password, String email,
 			String phone, Date dob, String nationality, int age, Timestamp createdAt, boolean enabled) {

@@ -112,7 +112,7 @@ public class CommentServiceImpl implements CommentService{
 				throw new CommentNotFoundException();
 			}
 		} catch (Exception e) {
-			System.out.println("Saving user failed. Returning empty object. See stack trace.");
+			System.out.println("Deleting user failed. Returning empty object. See stack trace.");
 			System.out.println(e.getMessage());
 			return null;
 		}

@@ -35,6 +35,11 @@ public class Video {
 	private Set<Comment> comments;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "playlist_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("video")
+	private Playlist playlist;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnoreProperties("video")
 	private User user;
