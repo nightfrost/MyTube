@@ -41,12 +41,13 @@ public class Video {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("video")
+    //@JsonIgnoreProperties("video")
 	private User user;
 
-	public Video(String name, byte[] bytes) {
+	public Video(String name, byte[] bytes, User userId) {
 		this.name = name;
 		this.data = bytes;
+		this.user = userId;
 	}
 	
 	/**

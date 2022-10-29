@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.nightfrost.mytubeapi.models.User;
 import io.nightfrost.mytubeapi.services.VideoService;
 import io.nightfrost.mytubeapi.services.VideoServiceImpl;
 import lombok.AllArgsConstructor;
@@ -28,8 +29,8 @@ public class VideoController {
 	private VideoService videoService;
 	
 	@PostMapping
-	public ResponseEntity<String> saveVideo(@RequestParam MultipartFile file, @RequestParam String name) throws IOException{
-		videoService.saveVideo(file, name);
+	public ResponseEntity<String> saveVideo(@RequestParam MultipartFile file, @RequestParam String name, @RequestParam User userId) throws IOException{
+		videoService.saveVideo(file, name, userId);
 		return ResponseEntity.ok("Video has been successfully saved");
 	}
 	

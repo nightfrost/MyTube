@@ -3,7 +3,9 @@ package io.nightfrost.mytubeapi.services;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.nightfrost.mytubeapi.models.User;
 import io.nightfrost.mytubeapi.models.Video;
+import io.nightfrost.mytubeapi.repositories.UserRepository;
 import io.nightfrost.mytubeapi.repositories.VideoRepository;
 
 import static org.mockito.Mockito.*;
@@ -22,13 +24,18 @@ public class VideoServiceImplTest {
 	 */
 	VideoRepository videoRepository = mock(VideoRepository.class);
 	VideoService videoService = new VideoServiceImpl(videoRepository);
+	
+	UserRepository userRepository = mock(UserRepository.class);
+	UserService userService = new UserServiceImpl(userRepository);
 
 	// Test values
 	String testName = "myVid";
 
 	@Test
 	void getVideo() {
-		Video expected = new Video(testName, null);
+		User userData = new User();
+		userData.setId(1);
+		Video expected = new Video(testName, null, userData);
 		Video actual = videoService.getVideo(testName);
 
 		//When findByName is called, return expected
@@ -63,10 +70,12 @@ public class VideoServiceImplTest {
 
 	@Test
 	void saveVideo() throws IOException {
+		User userData = new User();
+		userData.setId(1);
 		MultipartFile file = mock(MultipartFile.class);
-		Video testVid = new Video(testName, file.getBytes());
+		Video testVid = new Video(testName, file.getBytes(), userData);
 		
-		videoService.saveVideo(file, testName);
+		videoService.saveVideo(file, testName, userData);
 		
 		//Verify that videoRepository was called.
 		verify(videoRepository, times(1)).existsByName(testName);

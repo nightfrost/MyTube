@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import io.nightfrost.mytubeapi.exceptions.VideoAlreadyExistsException;
 import io.nightfrost.mytubeapi.exceptions.VideoNotFoundException;
+import io.nightfrost.mytubeapi.models.User;
 import io.nightfrost.mytubeapi.models.Video;
 import io.nightfrost.mytubeapi.repositories.VideoRepository;
 import lombok.AllArgsConstructor;
@@ -37,12 +38,12 @@ public class VideoServiceImpl implements VideoService {
 	}
 
 	@Override
-	public void saveVideo(MultipartFile file, String name) throws IOException {
+	public void saveVideo(MultipartFile file, String name, User userId) throws IOException {
 		try {
 			if (videoRepository.existsByName(name)) {
 				throw new VideoAlreadyExistsException();
 			} else {
-				Video newVideo = new Video(name, file.getBytes());
+				Video newVideo = new Video(name, file.getBytes(), userId);
 				videoRepository.saveAndFlush(newVideo);
 			}
 		} catch (Exception e) {
