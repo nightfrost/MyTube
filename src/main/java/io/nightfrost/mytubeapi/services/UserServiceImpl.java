@@ -59,7 +59,9 @@ public class UserServiceImpl implements UserService {
 			if (userRepository.existsByEmail(newUser.getEmail()) || userRepository.existsByUsername(newUser.getUsername()) ) {
 				throw new UserAlreadyExistsException();
 			} else {
+				newUser.calcAge();
 				returnUser = userRepository.saveAndFlush(newUser);
+				
 				return returnUser;
 			}
 		} catch (Exception e) {

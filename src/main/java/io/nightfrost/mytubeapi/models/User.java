@@ -98,14 +98,14 @@ public class User {
 	/**
 	 * <p> Method used to calculate a users age using the DOB field.
 	 * 
-	 * @return Users age in the form of an Integer
+	 * 
 	 */
-	public int calcAge() {
+	public void calcAge() {
 		Date today = new Date(System.currentTimeMillis());
 		if ((this.dob != null) && (today != null)) {
-			return Period.between(this.dob.toLocalDate(), today.toLocalDate()).getYears();
+			this.age = Period.between(this.dob.toLocalDate(), today.toLocalDate()).getYears();
 		} else {
-			return -1;
+			this.age = -1;
 		}
 	}
 }
