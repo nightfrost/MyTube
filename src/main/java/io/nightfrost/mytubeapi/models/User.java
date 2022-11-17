@@ -3,7 +3,6 @@ package io.nightfrost.mytubeapi.models;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.Period;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -19,7 +18,8 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * <P>{@code User} is a model used to define the User Table as well as the object itself.

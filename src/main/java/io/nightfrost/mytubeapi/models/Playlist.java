@@ -1,14 +1,10 @@
 package io.nightfrost.mytubeapi.models;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -39,7 +35,7 @@ public class Playlist {
 	private String playlistName;
 	
 	/*
-	 * @Basic
+	 * @Basicc
 	 * 
 	 * @ElementCollection(targetClass = Long.class)
 	 * 

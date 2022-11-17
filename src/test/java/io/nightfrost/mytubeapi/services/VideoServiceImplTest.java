@@ -1,5 +1,14 @@
 package io.nightfrost.mytubeapi.services;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.io.IOException;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -7,13 +16,6 @@ import io.nightfrost.mytubeapi.models.User;
 import io.nightfrost.mytubeapi.models.Video;
 import io.nightfrost.mytubeapi.repositories.UserRepository;
 import io.nightfrost.mytubeapi.repositories.VideoRepository;
-
-import static org.mockito.Mockito.*;
-
-import java.io.IOException;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class VideoServiceImplTest {
 	/*

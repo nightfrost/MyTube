@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.nightfrost.mytubeapi.models.Playlist;
-import io.nightfrost.mytubeapi.repositories.PlaylistRepository;
 import io.nightfrost.mytubeapi.services.PlaylistService;
 import lombok.AllArgsConstructor;
 

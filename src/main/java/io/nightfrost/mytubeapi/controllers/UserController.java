@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.nightfrost.mytubeapi.models.User;
 import io.nightfrost.mytubeapi.services.UserService;
-import io.nightfrost.mytubeapi.services.UserServiceImpl;
 import lombok.AllArgsConstructor;
 
 @RestController

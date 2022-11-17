@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import io.nightfrost.mytubeapi.exceptions.CommentNotFoundException;
 import io.nightfrost.mytubeapi.exceptions.UserNotFoundException;
 import io.nightfrost.mytubeapi.exceptions.VideoNotFoundException;
-import io.nightfrost.mytubeapi.repositories.UserRepository;
-import io.nightfrost.mytubeapi.repositories.VideoRepository;
 import io.nightfrost.mytubeapi.models.Comment;
 import io.nightfrost.mytubeapi.repositories.CommentRepository;
+import io.nightfrost.mytubeapi.repositories.UserRepository;
+import io.nightfrost.mytubeapi.repositories.VideoRepository;
 import lombok.AllArgsConstructor;
 
 @Service

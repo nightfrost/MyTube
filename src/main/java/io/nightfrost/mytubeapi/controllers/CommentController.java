@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.nightfrost.mytubeapi.models.Comment;
 import io.nightfrost.mytubeapi.services.CommentService;
-import io.nightfrost.mytubeapi.services.CommentServiceImpl;
 import lombok.AllArgsConstructor;
 
 @RestController
