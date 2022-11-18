@@ -61,7 +61,6 @@ public class UserServiceImpl implements UserService {
 			} else {
 				newUser.calcAge();
 				returnUser = userRepository.saveAndFlush(newUser);
-				
 				return returnUser;
 			}
 		} catch (Exception e) {
@@ -77,6 +76,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			if ((returnUser = userRepository.getReferenceById(id)) != null) {
 				returnUser = (User) HelperService.partialUpdate(returnUser, newUser);
+				returnUser.setId(id);
 				userRepository.saveAndFlush(returnUser);
 				return returnUser;
 			} else {
