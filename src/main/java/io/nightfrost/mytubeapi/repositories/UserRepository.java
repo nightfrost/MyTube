@@ -21,4 +21,18 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	@Query(nativeQuery = true, value = "Select * FROM user")
 	List<User> getAllUsers();
+	
+	@Query(nativeQuery = true, value = "SELECT `user`.`id`,\r\n"
+			+ "    `user`.`created_at`,\r\n"
+			+ "    `user`.`dob`,\r\n"
+			+ "    `user`.`email`,\r\n"
+			+ "    `user`.`enabled`,\r\n"
+			+ "    `user`.`first_name`,\r\n"
+			+ "    `user`.`last_name`,\r\n"
+			+ "    `user`.`nationality`,\r\n"
+			+ "    `user`.`password`,\r\n"
+			+ "    `user`.`phone`,\r\n"
+			+ "    `user`.`username`\r\n"
+			+ "FROM `mytube`.`user`;")
+	User getById(long id);
 }

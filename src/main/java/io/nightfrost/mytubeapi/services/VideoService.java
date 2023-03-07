@@ -11,6 +11,8 @@ import io.nightfrost.mytubeapi.models.Video;
 public interface VideoService {
 	Video getVideo(String name);
 	
+	Video getVideo(long videoId);
+	
 	void saveVideo(MultipartFile file, String name, User userid) throws IOException;
 	
 	List<String> getAllVideoNames();

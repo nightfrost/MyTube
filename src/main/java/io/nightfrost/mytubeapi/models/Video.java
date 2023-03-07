@@ -39,18 +39,15 @@ public class Video {
 	 * One Video has Many Comments
 	 * NOT owning side.
 	 */
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "video", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("video")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "video", cascade = CascadeType.ALL)
 	private Set<Comment> comments;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "playlist_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("video")
 	private Playlist playlist;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    //@JsonIgnoreProperties("video")
 	private User user;
 
 	public Video(String name, byte[] bytes, User userId) {

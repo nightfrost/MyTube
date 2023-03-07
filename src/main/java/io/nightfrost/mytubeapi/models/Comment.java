@@ -42,7 +42,7 @@ public class Comment {
 	 * Many Comments to One Video.
 	 * This is the owning side.
 	 */
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "video_id", referencedColumnName = "id")
     @JsonIgnoreProperties("comment")
 	private Video video;
@@ -50,7 +50,7 @@ public class Comment {
 	/*
 	 * Many Comments to One User
 	 */
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnoreProperties("comment")
 	private User user;

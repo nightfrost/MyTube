@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import io.nightfrost.mytubeapi.exceptions.UserAlreadyExistsException;
 import io.nightfrost.mytubeapi.exceptions.UserNotFoundException;
 import io.nightfrost.mytubeapi.models.User;
+import io.nightfrost.mytubeapi.repositories.CommentRepository;
+import io.nightfrost.mytubeapi.repositories.PlaylistRepository;
 import io.nightfrost.mytubeapi.repositories.UserRepository;
+import io.nightfrost.mytubeapi.repositories.VideoRepository;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -19,12 +22,24 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	VideoRepository videoRepository;
+	
+	@Autowired
+	CommentRepository commentRepository;
+	
+	@Autowired
+	PlaylistRepository playlistRepository;
 
 	@Override
 	public List<User> getAllUsers() {
 		List<User> usersList = new ArrayList<>();
 		try {
 			if (!(usersList = userRepository.getAllUsers()).isEmpty()) {
+				usersList.forEach((user) -> user.getComments());
+				usersList.forEach((user) -> user.getVideos());
+				usersList.forEach((user) -> user.getPlaylists());
 				return usersList;
 			} else {
 				throw new UserNotFoundException();
@@ -40,7 +55,10 @@ public class UserServiceImpl implements UserService {
 	public User getUserById(long id) {
 		User returnUser = null;
 		try {
-			if ((returnUser = userRepository.getReferenceById(id)) != null) {
+			if ((returnUser = userRepository.findById(id).get()) != null) {
+//				returnUser.getVideos();
+//				returnUser.getComments();
+//				returnUser.getPlaylists();
 				return returnUser;
 			} else {
 				throw new UserNotFoundException();

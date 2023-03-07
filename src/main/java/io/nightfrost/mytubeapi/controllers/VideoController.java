@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import io.nightfrost.mytubeapi.models.User;
+import io.nightfrost.mytubeapi.models.Video;
 import io.nightfrost.mytubeapi.services.VideoService;
 import lombok.AllArgsConstructor;
 
@@ -33,7 +34,7 @@ public class VideoController {
 		return ResponseEntity.ok("Video has been successfully saved");
 	}
 	
-	@GetMapping("{name}")
+	@GetMapping("/name/{name}")
 	public ResponseEntity<Resource> getVideoByName(@PathVariable String name) {
 		return ResponseEntity.
 				ok(new ByteArrayResource(videoService.getVideo(name).getData()));
@@ -42,5 +43,10 @@ public class VideoController {
 	@GetMapping("all")
 	public ResponseEntity<List<String>> getAllVideoNames() {
 		return ResponseEntity.ok(videoService.getAllVideoNames());
+	}
+	
+	@GetMapping(value = "{id}")
+	public ResponseEntity<Video> getVideoById(@PathVariable long id) {
+		return ResponseEntity.ok(videoService.getVideo(id));
 	}
 }

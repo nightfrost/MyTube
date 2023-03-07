@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.Period;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import io.nightfrost.mytubeapi.controllers.HelperController;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,9 +16,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
@@ -27,6 +32,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
+@Table(name = "myuser")
 public class User {
 	
 	@Id
@@ -67,17 +73,41 @@ public class User {
 	@Column(nullable = false)
 	private boolean enabled;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("user")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Comment> comments;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("user")
+//	@JsonGetter("comments")
+//	public Set<String> commentsGetter() {
+//		if (comments != null) {
+//			return comments.stream().map(comments -> HelperController.BASE_ENDPOINT + "comment/" + comments.getVideo()).collect(Collectors.toSet());
+//		} else {
+//			return null;
+//		}
+//	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Video> videos;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("user")
+//	@JsonGetter("videos")
+//	public Set<String> videosGetter() {
+//		if (videos != null) {
+//			return videos.stream().map(videos -> HelperController.BASE_ENDPOINT + "video/" + videos.getId()).collect(Collectors.toSet());
+//		} else {
+//			return null;
+//		}
+//	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Playlist> playlists;
+	
+//	@JsonGetter("playlists")
+//	public Set<String> playlistsGetter() {
+//		if (playlists != null) {
+//			return playlists.stream().map(playlists -> HelperController.BASE_ENDPOINT + "playlist/" + playlists.getId()).collect(Collectors.toSet());
+//		} else {
+//			return null;
+//		}
+//	}
 	
 	public User(long id, String firstName, String lastName, String username, String password, String email,
 			String phone, Date dob, String nationality, int age, Timestamp createdAt, boolean enabled) {

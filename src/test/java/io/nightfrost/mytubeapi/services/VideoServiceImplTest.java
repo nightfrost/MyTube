@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import io.nightfrost.mytubeapi.models.User;
 import io.nightfrost.mytubeapi.models.Video;
+import io.nightfrost.mytubeapi.repositories.CommentRepository;
+import io.nightfrost.mytubeapi.repositories.PlaylistRepository;
 import io.nightfrost.mytubeapi.repositories.UserRepository;
 import io.nightfrost.mytubeapi.repositories.VideoRepository;
 
@@ -28,7 +30,9 @@ public class VideoServiceImplTest {
 	VideoService videoService = new VideoServiceImpl(videoRepository);
 	
 	UserRepository userRepository = mock(UserRepository.class);
-	UserService userService = new UserServiceImpl(userRepository);
+	CommentRepository commentRepository = mock(CommentRepository.class);
+	PlaylistRepository playlistRepository = mock(PlaylistRepository.class);
+	UserService userService = new UserServiceImpl(userRepository, videoRepository, commentRepository, playlistRepository);
 
 	// Test values
 	String testName = "myVid";

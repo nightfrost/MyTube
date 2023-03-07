@@ -43,11 +43,11 @@ public class Playlist {
 	 * = @JoinColumn(referencedColumnName = "id")) private Set<Video> videos;
 	 */
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "playlist", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "playlist", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("video")
 	private Set<Video> videos;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnoreProperties("playlist")
 	private User user;

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.nightfrost.mytubeapi.exceptions.UserNotFoundException;
 import io.nightfrost.mytubeapi.exceptions.VideoAlreadyExistsException;
 import io.nightfrost.mytubeapi.exceptions.VideoNotFoundException;
 import io.nightfrost.mytubeapi.models.User;
@@ -55,5 +56,24 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public List<String> getAllVideoNames() {
 		return videoRepository.getAllEntryNames();
+	}
+
+	@Override
+	public Video getVideo(long videoId) {
+		Video returnVideo = null;
+		try {
+			if ((returnVideo = videoRepository.findById(videoId).get()) != null) {
+//				returnUser.getVideos();
+//				returnUser.getComments();
+//				returnUser.getPlaylists();
+				return returnVideo;
+			} else {
+				throw new VideoNotFoundException();
+			}
+		} catch (Exception e) {
+			System.out.println("Retrieval of Video(s) failed. Returning empty object. See stack trace.");
+			System.out.println(e.getMessage());
+			return returnVideo;
+		}
 	}
 }
