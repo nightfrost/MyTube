@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.nightfrost.mytubeapi.dto.UserDTO;
 import io.nightfrost.mytubeapi.models.User;
 import io.nightfrost.mytubeapi.services.UserService;
 import lombok.AllArgsConstructor;
@@ -26,12 +27,12 @@ public class UserController {
 	private UserService userService;
 	
 	@GetMapping()
-	public ResponseEntity<List<User>> getAllUsers() {
+	public ResponseEntity<List<UserDTO>> getAllUsers() {
 		return ResponseEntity.ok(userService.getAllUsers());
 	}
 	
 	@GetMapping(value = "{id}")
-	public ResponseEntity<User> getUserById(@PathVariable long id) {
+	public ResponseEntity<UserDTO> getUserById(@PathVariable long id) {
 		return ResponseEntity.ok(userService.getUserById(id));
 	}
 	

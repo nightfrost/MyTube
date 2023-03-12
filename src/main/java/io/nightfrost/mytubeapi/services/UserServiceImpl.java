@@ -3,10 +3,12 @@ package io.nightfrost.mytubeapi.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.nightfrost.mytubeapi.dto.UserDTO;
 import io.nightfrost.mytubeapi.exceptions.UserAlreadyExistsException;
 import io.nightfrost.mytubeapi.exceptions.UserNotFoundException;
 import io.nightfrost.mytubeapi.models.User;
@@ -31,42 +33,45 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	PlaylistRepository playlistRepository;
+	
+	@Autowired
+	ModelMapper modelMapper;
 
 	@Override
-	public List<User> getAllUsers() {
+	public List<UserDTO> getAllUsers() {
 		List<User> usersList = new ArrayList<>();
+		List<UserDTO> usersListDto = new ArrayList<>();
+		
 		try {
 			if (!(usersList = userRepository.getAllUsers()).isEmpty()) {
-				usersList.forEach((user) -> user.getComments());
-				usersList.forEach((user) -> user.getVideos());
-				usersList.forEach((user) -> user.getPlaylists());
-				return usersList;
+				usersList.forEach((user) -> usersListDto.add(modelMapper.map(user, UserDTO.class)));
+				return usersListDto;
 			} else {
 				throw new UserNotFoundException();
 			}
 		} catch (Exception e) {
 			System.out.println("Retrieval of user(s) failed. Returning empty object. See stack trace.");
 			System.out.println(e.getMessage());
-			return usersList;
+			return usersListDto;
 		}
 	}
 
 	@Override
-	public User getUserById(long id) {
+	public UserDTO getUserById(long id) {
 		User returnUser = null;
+		UserDTO returnUserDto = null;
+		
 		try {
 			if ((returnUser = userRepository.findById(id).get()) != null) {
-//				returnUser.getVideos();
-//				returnUser.getComments();
-//				returnUser.getPlaylists();
-				return returnUser;
+				returnUserDto = modelMapper.map(returnUser, UserDTO.class);
+				return returnUserDto;
 			} else {
 				throw new UserNotFoundException();
 			}
 		} catch (Exception e) {
 			System.out.println("Retrieval of user(s) failed. Returning empty object. See stack trace.");
 			System.out.println(e.getMessage());
-			return returnUser;
+			return returnUserDto;
 		}
 	}
 

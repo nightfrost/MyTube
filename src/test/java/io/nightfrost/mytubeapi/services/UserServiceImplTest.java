@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import io.nightfrost.mytubeapi.dto.UserDTO;
 import io.nightfrost.mytubeapi.models.Comment;
 import io.nightfrost.mytubeapi.models.Playlist;
 import io.nightfrost.mytubeapi.models.User;
@@ -28,7 +29,7 @@ public class UserServiceImplTest {
 		VideoRepository videoRepository = mock(VideoRepository.class);
 		CommentRepository commentRepository = mock(CommentRepository.class);
 		PlaylistRepository playlistRepository = mock(PlaylistRepository.class);
-		UserService userService = new UserServiceImpl(userRepository, videoRepository, commentRepository, playlistRepository);
+		UserService userService = new UserServiceImpl(userRepository, videoRepository, commentRepository, playlistRepository, null);
 		
 		//Test values
 		long id = 1;
@@ -51,7 +52,7 @@ public class UserServiceImplTest {
 		void getUser() {
 			User expected = new User(id, firstName, lastName, username, password, email,
 					phone, dob, nationality, age, createdAt, enabled);
-			User actual = userService.getUserById(id);
+			UserDTO actual = userService.getUserById(id);
 			
 			//When getReferenceById is called, return expected
 			when(userRepository.getReferenceById(id))

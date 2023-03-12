@@ -12,6 +12,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.nightfrost.mytubeapi.dto.VideoDTO;
 import io.nightfrost.mytubeapi.models.User;
 import io.nightfrost.mytubeapi.models.Video;
 import io.nightfrost.mytubeapi.repositories.CommentRepository;
@@ -27,12 +28,12 @@ public class VideoServiceImplTest {
 	 * on.
 	 */
 	VideoRepository videoRepository = mock(VideoRepository.class);
-	VideoService videoService = new VideoServiceImpl(videoRepository);
+	VideoService videoService = new VideoServiceImpl(videoRepository, null);
 	
 	UserRepository userRepository = mock(UserRepository.class);
 	CommentRepository commentRepository = mock(CommentRepository.class);
 	PlaylistRepository playlistRepository = mock(PlaylistRepository.class);
-	UserService userService = new UserServiceImpl(userRepository, videoRepository, commentRepository, playlistRepository);
+	UserService userService = new UserServiceImpl(userRepository, videoRepository, commentRepository, playlistRepository, null);
 
 	// Test values
 	String testName = "myVid";
@@ -42,7 +43,7 @@ public class VideoServiceImplTest {
 		User userData = new User();
 		userData.setId(1);
 		Video expected = new Video(testName, null, userData);
-		Video actual = videoService.getVideo(testName);
+		VideoDTO actual = videoService.getVideo(testName);
 
 		//When findByName is called, return expected
 		when(videoRepository.findByName(testName))
