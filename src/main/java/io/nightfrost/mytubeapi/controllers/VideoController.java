@@ -41,14 +41,6 @@ public class VideoController {
 		return ResponseEntity.ok("Video has been successfully saved");
 	}
 	
-	@GetMapping("/name/{name}")
-	public ResponseEntity<Resource> getVideoByName(@PathVariable String name) {
-		return ResponseEntity
-	               .status(HttpStatus.OK)
-	               .contentType(MediaType.APPLICATION_OCTET_STREAM)
-	               .body(new ByteArrayResource(videoService.getVideo(name).getData()));
-	}
-	
 	@GetMapping("all")
 	public ResponseEntity<List<String>> getAllVideoNames() {
 		return ResponseEntity.ok(videoService.getAllVideoNames());

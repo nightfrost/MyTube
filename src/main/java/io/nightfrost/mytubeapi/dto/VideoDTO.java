@@ -16,7 +16,5 @@ public class VideoDTO {
 	
 	private String name;
 	
-	private byte[] data;
-	
 	private long userId;
 }
