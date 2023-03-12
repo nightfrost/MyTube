@@ -16,10 +16,10 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	boolean existsByEmail(String email);
 	
-	@Query(nativeQuery = true, value = "SELECT username FROM user")
+	@Query(nativeQuery = true, value = "SELECT username FROM myuser")
 	List<String> getAllUsernames();
 	
-	@Query(nativeQuery = true, value = "Select * FROM user")
+	@Query(nativeQuery = true, value = "Select * FROM myuser")
 	List<User> getAllUsers();
 	
 	@Query(nativeQuery = true, value = "SELECT `user`.`id`,\r\n"
@@ -33,6 +33,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
 			+ "    `user`.`password`,\r\n"
 			+ "    `user`.`phone`,\r\n"
 			+ "    `user`.`username`\r\n"
-			+ "FROM `mytube`.`user`;")
+			+ "FROM `mytube`.`myuser`;")
 	User getById(long id);
 }

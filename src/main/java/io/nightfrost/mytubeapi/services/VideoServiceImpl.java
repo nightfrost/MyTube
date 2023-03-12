@@ -3,9 +3,12 @@ package io.nightfrost.mytubeapi.services;
 import java.io.IOException;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.nightfrost.mytubeapi.dto.VideoDTO;
+import io.nightfrost.mytubeapi.dto.VideoDataDTO;
 import io.nightfrost.mytubeapi.exceptions.UserNotFoundException;
 import io.nightfrost.mytubeapi.exceptions.VideoAlreadyExistsException;
 import io.nightfrost.mytubeapi.exceptions.VideoNotFoundException;
@@ -19,14 +22,18 @@ import lombok.AllArgsConstructor;
 public class VideoServiceImpl implements VideoService {
 
 	private VideoRepository videoRepository;
+	
+	private ModelMapper modelMapper;
 
 	@Override
-	public Video getVideo(String name) {
+	public VideoDTO getVideo(String name) {
 		Video returnVideo = new Video();
+		VideoDTO returnVideoDto = new VideoDTO();
 
 		try {
 			if (!(returnVideo = videoRepository.findByName(name)).isEmpty()) {
-				return returnVideo;
+				returnVideoDto = modelMapper.map(returnVideo, VideoDTO.class);
+				return returnVideoDto;
 			} else {
 				throw new VideoNotFoundException();
 			}
@@ -34,7 +41,7 @@ public class VideoServiceImpl implements VideoService {
 			System.out.println(
 					"Retrieval of video from database failed, returning empty video object. See stack trace...");
 			System.out.println(e.getMessage());
-			return returnVideo;
+			return returnVideoDto;
 		}
 	}
 
@@ -57,23 +64,45 @@ public class VideoServiceImpl implements VideoService {
 	public List<String> getAllVideoNames() {
 		return videoRepository.getAllEntryNames();
 	}
-
+	
 	@Override
-	public Video getVideo(long videoId) {
-		Video returnVideo = null;
+	public VideoDataDTO getVideoData(long videoId) {
+		Video returnVideo = new Video();
+		VideoDataDTO returnVideoDataDTO = new VideoDataDTO();
+		
 		try {
 			if ((returnVideo = videoRepository.findById(videoId).get()) != null) {
-//				returnUser.getVideos();
-//				returnUser.getComments();
-//				returnUser.getPlaylists();
-				return returnVideo;
+				returnVideoDataDTO = modelMapper.map(returnVideo, VideoDataDTO.class);
+				
+				return returnVideoDataDTO;
 			} else {
 				throw new VideoNotFoundException();
 			}
 		} catch (Exception e) {
 			System.out.println("Retrieval of Video(s) failed. Returning empty object. See stack trace.");
 			System.out.println(e.getMessage());
-			return returnVideo;
+			
+			return returnVideoDataDTO;
+		}
+	}
+
+	@Override
+	public VideoDTO getVideo(long videoId) {
+		VideoDTO returnVideoDTO = null;
+		Video returnVideo = null;
+		
+		try {
+			if ((returnVideo = videoRepository.findById(videoId).get()) != null) {
+				returnVideoDTO = modelMapper.map(returnVideo, VideoDTO.class);
+				
+				return returnVideoDTO;
+			} else {
+				throw new VideoNotFoundException();
+			}
+		} catch (Exception e) {
+			System.out.println("Retrieval of Video(s) failed. Returning empty object. See stack trace.");
+			System.out.println(e.getMessage());
+			return returnVideoDTO;
 		}
 	}
 }
