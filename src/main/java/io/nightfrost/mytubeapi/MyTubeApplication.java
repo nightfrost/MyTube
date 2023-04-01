@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 public class MyTubeApplication extends SpringBootServletInitializer{
 	
 	@Bean
-	public ModelMapper modelMapper() {
+	ModelMapper modelMapper() {
 	    return new ModelMapper();
 	}
 
