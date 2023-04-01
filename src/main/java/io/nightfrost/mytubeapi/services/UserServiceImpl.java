@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
 		UserDTO returnUserDto = null;
 		
 		try {
-			if ((returnUser = userRepository.findById(id).get()) != null) {
+			if ((returnUser = userRepository.getReferenceById(id)).getEmail() != null) {
 				returnUserDto = modelMapper.map(returnUser, UserDTO.class);
 				return returnUserDto;
 			} else {
@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			System.out.println("Retrieval of user(s) failed. Returning empty object. See stack trace.");
 			System.out.println(e.getMessage());
-			return returnUserDto;
+			throw new UserNotFoundException();
 		}
 	}
 
