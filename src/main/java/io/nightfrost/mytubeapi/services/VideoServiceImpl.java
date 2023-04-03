@@ -25,6 +25,7 @@ public class VideoServiceImpl implements VideoService {
 	
 	private ModelMapper modelMapper;
 
+	@Deprecated
 	@Override
 	public VideoDTO getVideo(String name) {
 		Video returnVideo = new Video();
@@ -71,7 +72,7 @@ public class VideoServiceImpl implements VideoService {
 		VideoDataDTO returnVideoDataDTO = new VideoDataDTO();
 		
 		try {
-			if ((returnVideo = videoRepository.findById(videoId).get()) != null) {
+			if ((returnVideo = videoRepository.getReferenceById(videoId)) != null) {
 				returnVideoDataDTO = modelMapper.map(returnVideo, VideoDataDTO.class);
 				
 				return returnVideoDataDTO;
@@ -92,7 +93,7 @@ public class VideoServiceImpl implements VideoService {
 		Video returnVideo = null;
 		
 		try {
-			if ((returnVideo = videoRepository.findById(videoId).get()) != null) {
+			if ((returnVideo = videoRepository.getReferenceById(videoId)) != null) {
 				returnVideoDTO = modelMapper.map(returnVideo, VideoDTO.class);
 				
 				return returnVideoDTO;

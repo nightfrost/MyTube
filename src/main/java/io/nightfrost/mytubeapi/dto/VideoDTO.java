@@ -6,11 +6,15 @@ import io.nightfrost.mytubeapi.models.Comment;
 import io.nightfrost.mytubeapi.models.Playlist;
 import io.nightfrost.mytubeapi.models.User;
 import io.nightfrost.mytubeapi.models.Video;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
 public class VideoDTO {
 	private long id;
 	
