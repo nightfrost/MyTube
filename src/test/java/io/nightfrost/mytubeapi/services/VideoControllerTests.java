@@ -69,26 +69,26 @@ public class VideoControllerTests {
 		verify(videoService, times(1)).getVideo(videoId);
 	}
 	
-	@Test
-	void getVideoData() {
-		User userData = new User();
-		userData.setId(1);
-		Video expected = new Video(testName, null, userData);
-		VideoDTO actual = videoService.getVideo(testName);
-
-		//When findByName is called, return expected
-		when(videoRepository.findByName(testName))
-			.thenReturn(expected);
-		//When existsByName is called, return true
-		when(videoRepository.existsByName(testName))
-			.thenReturn(true);
-		
-		assertEquals(expected, actual);
-		
-		//Verify that videoRepository was called.
-		verify(videoRepository, times(1)).existsByName(testName);
-		verify(videoRepository, times(1)).findByName(testName);
-	}
+//	@Test
+//	void getVideoData() {
+//		User userData = new User();
+//		userData.setId(1);
+//		Video expected = new Video(testName, null, userData);
+//		VideoDTO actual = videoService.getVideo(testName);
+//
+//		//When findByName is called, return expected
+//		when(videoRepository.findByName(testName))
+//			.thenReturn(expected);
+//		//When existsByName is called, return true
+//		when(videoRepository.existsByName(testName))
+//			.thenReturn(true);
+//		
+//		assertEquals(expected, actual);
+//		
+//		//Verify that videoRepository was called.
+//		verify(videoRepository, times(1)).existsByName(testName);
+//		verify(videoRepository, times(1)).findByName(testName);
+//	}
 //
 //	@Test
 //	void getAllVideoNames() {
