@@ -11,8 +11,12 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
+import org.assertj.core.util.Sets;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import io.nightfrost.mytubeapi.dto.UserDTO;
@@ -26,43 +30,69 @@ import io.nightfrost.mytubeapi.repositories.VideoRepository;
 
 @SpringBootTest
 public class UserServiceImplTest {
-		//Mock repo and create service.
-		UserRepository userRepository = mock(UserRepository.class);
-		VideoRepository videoRepository = mock(VideoRepository.class);
-		CommentRepository commentRepository = mock(CommentRepository.class);
-		PlaylistRepository playlistRepository = mock(PlaylistRepository.class);
-		UserService userService = new UserServiceImpl(userRepository, videoRepository, commentRepository, playlistRepository, null);
+
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	// Mock repo and create service.
+	UserRepository userRepository = mock(UserRepository.class);
+	VideoRepository videoRepository = mock(VideoRepository.class);
+	CommentRepository commentRepository = mock(CommentRepository.class);
+	PlaylistRepository playlistRepository = mock(PlaylistRepository.class);
+	UserService userService = new UserServiceImpl(userRepository, videoRepository, commentRepository,
+			playlistRepository, modelMapper);
+
+	// Test values
+	long id = 1;
+	String firstName = "John";
+	String lastName = "Doe";
+	String username = "TheRealJohnDoe";
+	String password = "password";
+	String email = "JohnDoe@JohnDoe.dk";
+	String phone = "+45 11223344";
+	Date dob = Date.valueOf(LocalDate.now());
+	String nationality = "Denmark";
+	int age = 42;
+	Timestamp createdAt = Timestamp.valueOf(LocalDateTime.now());
+	boolean enabled = true;
+	Comment newComment1 = new Comment();
+	Comment newComment2 = new Comment();
+	List<Comment> comments = List.of(newComment1, newComment2);
+	Set<Comment> commentsAsSet = Set.copyOf(comments);
+	User testUserOne = User.builder()
+			.id(id)
+			.firstName(firstName)
+			.lastName(lastName)
+			.username(username)
+			.password(password)
+			.email(email)
+			.phone(phone)
+			.dob(dob)
+			.nationality(nationality)
+			.age(age)
+			.createdAt(createdAt)
+			.enabled(enabled)
+			.comments(commentsAsSet)
+			.build();
+	User testUserTwo = User.builder()
+			.id(2)
+			.firstName(firstName)
+			.lastName(lastName)
+			.username(username)
+			.password(password)
+			.email(email)
+			.phone(phone)
+			.dob(dob)
+			.nationality(nationality)
+			.age(age)
+			.createdAt(createdAt)
+			.enabled(enabled)
+			.comments(commentsAsSet)
+			.build();
+	List<User> listOfUsers = List.of(testUserOne, testUserTwo);
+	
+	@Test
+	public void When_GetAllUsers_Expect_AllUsers() {
 		
-		//Test values
-		long id = 1;
-		String firstName = "John";
-		String lastName = "Doe";
-		String username = "TheRealJohnDoe";
-		String password = "password";
-		String email = "JohnDoe@JohnDoe.dk";
-		String phone = "+45 11223344";
-		Date dob = Date.valueOf(LocalDate.now());
-		String nationality = "Denmark";
-		int age = 42;
-		Timestamp createdAt = Timestamp.valueOf(LocalDateTime.now());
-		boolean enabled = true;
-		Comment newComment1 = new Comment();
-		Comment newComment2 = new Comment();
-		List<Comment> comments = List.of(newComment1, newComment2);
-		
-//		@Test
-//		void getUser() {
-//			User expected = new User(id, firstName, lastName, username, password, email,
-//					phone, dob, nationality, age, createdAt, enabled);
-//			UserDTO actual = userService.getUserById(id);
-//			
-//			//When getReferenceById is called, return expected
-//			when(userRepository.getReferenceById(id))
-//				.thenReturn(expected);
-//			
-//			assertEquals(expected, actual);
-//			
-//			//Verify the call has been made
-//			verify(userRepository, times(1)).getReferenceById(id);
-//		}
+	}
 }

@@ -47,17 +47,19 @@ public class VideoServiceImpl implements VideoService {
 	}
 
 	@Override
-	public void saveVideo(MultipartFile file, String name, User userId) throws IOException {
+	public String saveVideo(MultipartFile file, String name, User userId) throws IOException {
 		try {
 			if (videoRepository.existsByName(name)) {
 				throw new VideoAlreadyExistsException();
 			} else {
 				Video newVideo = new Video(name, file.getBytes(), userId);
 				videoRepository.saveAndFlush(newVideo);
+				return "Video saved";
 			}
 		} catch (Exception e) {
 			System.out.println("Video was not saved. Check stack trace...");
 			System.out.println(e.getMessage());
+			return "Video was not saved. Check stack trace...";
 		}
 	}
 

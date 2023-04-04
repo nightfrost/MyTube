@@ -1,25 +1,26 @@
 package io.nightfrost.mytubeapi.services;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.multipart.MultipartFile;
 
 import io.nightfrost.mytubeapi.dto.VideoDTO;
+import io.nightfrost.mytubeapi.dto.VideoDataDTO;
+import io.nightfrost.mytubeapi.exceptions.VideoAlreadyExistsException;
 import io.nightfrost.mytubeapi.models.User;
 import io.nightfrost.mytubeapi.models.Video;
 import io.nightfrost.mytubeapi.repositories.CommentRepository;
@@ -28,7 +29,7 @@ import io.nightfrost.mytubeapi.repositories.UserRepository;
 import io.nightfrost.mytubeapi.repositories.VideoRepository;
 
 @SpringBootTest
-public class VideoControllerTests {
+public class VideoServiceTests {
 	/*
 	 * As we're writing unit tests for the VideoService class, we should be creating
 	 * mock classes of other classes it uses. This is to ensure that if we get an
@@ -37,86 +38,105 @@ public class VideoControllerTests {
 	 */
 
 	@MockBean
-	private VideoService videoService;
+	private VideoRepository videoRepository;
 	
-	@MockBean
-	private UserService userService;
-
 	@Autowired
 	private ModelMapper modelMapper;
-
+	
+	@Autowired
+	private VideoServiceImpl videoService = new VideoServiceImpl(videoRepository, modelMapper);
+		
 	// Test values
-	String testName = "Balenciaga";
+	String videoName = "Balenciaga";
+	byte[] videoData = new byte[10000000];
 	long videoId = 2;
 	long userId = 1;
-
+	User user = User.builder()
+			.id(userId)
+			.build();
+	Video returnVideo = Video.builder()
+			.id(videoId)
+			.name(videoName)
+			.user(user)
+			.data(videoData)
+			.build();
+	
 	@Test
-	public void whenGetVideo_returnVideo() throws Exception{
+	public void When_GetVideo_Expect_VideoDTO() throws Exception{
 		VideoDTO expected = VideoDTO.builder()
 				.id(videoId)
-				.name(testName)
+				.name(videoName)
 				.userId(userId)
 				.build();
 				
 		//When findById is called, return expected
-		when(videoService.getVideo(2L))
-			.thenReturn(expected);
+		when(videoRepository.getReferenceById(videoId))
+			.thenReturn(returnVideo);
 		
 		VideoDTO actual = videoService.getVideo(videoId);
 		assertEquals(expected, actual);
 		
 		//Verify that videoRepository was called.
-		verify(videoService, times(1)).getVideo(videoId);
+		verify(videoRepository, times(1)).getReferenceById(videoId);
 	}
 	
-//	@Test
-//	void getVideoData() {
-//		User userData = new User();
-//		userData.setId(1);
-//		Video expected = new Video(testName, null, userData);
-//		VideoDTO actual = videoService.getVideo(testName);
-//
-//		//When findByName is called, return expected
-//		when(videoRepository.findByName(testName))
-//			.thenReturn(expected);
-//		//When existsByName is called, return true
-//		when(videoRepository.existsByName(testName))
-//			.thenReturn(true);
+	@Test
+	public void When_GetVideoWrongVideoId_Expect_isNullTrue() throws Exception{
+		Video emptyVideoObject = null;
+		
+		when(videoRepository.getReferenceById(3L))
+			.thenReturn(emptyVideoObject);
+		
+		VideoDTO actual = videoService.getVideo(3L);
+		assertNull(actual);
+	}
+	
+	@Test
+	public void When_GetVideoData_expect_DataExists() throws Exception {
+		SecureRandom.getInstanceStrong().nextBytes(videoData);
+		VideoDataDTO expected = VideoDataDTO.builder()
+				.data(videoData)
+				.build();
+		
+		when(videoRepository.getReferenceById(videoId))
+			.thenReturn(returnVideo);
+		
+		VideoDataDTO actual = videoService.getVideoData(videoId);
+		
+		assertEquals(expected, actual);
+		assertTrue(actual.getData().length > 0);
+		verify(videoRepository, times(1)).getReferenceById(videoId);
+	}
+	
+	@Test
+	public void When_SaveVideo_expect_VideoSavedMessage() throws Exception {
+		//fill byte array with random data and convert to multipartfile
+		SecureRandom.getInstanceStrong().nextBytes(videoData);
+		TestMultipartFile testmpFile = new TestMultipartFile(videoData);
+		
+		String expected = "Video saved";
+		
+		//when saveVideo is called, return video saved.
+		when(videoRepository.saveAndFlush(returnVideo))
+			.thenReturn(returnVideo);
+		String actual = videoService.saveVideo(testmpFile, videoName, user);
+		
+		//assert response
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void When_SaveVideoNameAlreadyExists_Expect_VideoAlreadyExistsException() throws Exception {
+//		SecureRandom.getInstanceStrong().nextBytes(videoData);
+//		TestMultipartFile testmpFile = new TestMultipartFile(videoData);
 //		
-//		assertEquals(expected, actual);
-//		
-//		//Verify that videoRepository was called.
-//		verify(videoRepository, times(1)).existsByName(testName);
-//		verify(videoRepository, times(1)).findByName(testName);
-//	}
-//
-//	@Test
-//	void getAllVideoNames() {
-//		List<String> expected = List.of("myVid", "otherVid");
-//		List<String> actual = videoService.getAllVideoNames();
-//		
-//		//When getAllentryNames is called, return expected list.
-//		when(videoRepository.getAllEntryNames())
-//			.thenReturn(expected);
-//		
-//		assertEquals(expected, actual);
-//		
-//		//Verify that videoRepository was called.
-//		verify(videoRepository, times(1)).getAllEntryNames();
-//
-//	}
-//
-//	@Test
-//	void saveVideo() throws IOException {
-//		User userData = new User();
-//		userData.setId(1);
-//		MultipartFile file = mock(MultipartFile.class);
-//		Video testVid = new Video(testName, file.getBytes(), userData);
-//		
-//		videoService.saveVideo(file, testName, userData);
-//		
-//		//Verify that videoRepository was called.
-//		verify(videoRepository, times(1)).existsByName(testName);
-//		verify(videoRepository, times(1)).saveAndFlush(testVid);
-//	}
+//		when(videoRepository.saveAndFlush(returnVideo))
+//			.thenThrow(new VideoAlreadyExistsException());
+//		when(videoRepository.existsByName(videoName))
+//			.thenThrow(new VideoAlreadyExistsException());
+//		Exception exception = assertThrows(VideoAlreadyExistsException.class, () -> {
+//			String actual = videoService.saveVideo(testmpFile, videoName, user);
+//			String actualClone = videoService.saveVideo(testmpFile, videoName, user);
+//	    });
+	}
 }

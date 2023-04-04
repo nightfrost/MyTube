@@ -17,7 +17,7 @@ public interface VideoService {
 	
 	VideoDataDTO getVideoData(long videoId);
 	
-	void saveVideo(MultipartFile file, String name, User userid) throws IOException;
+	String saveVideo(MultipartFile file, String name, User userid) throws IOException;
 	
 	List<String> getAllVideoNames();
 }

@@ -37,8 +37,7 @@ public class VideoController {
 	
 	@PostMapping
 	public ResponseEntity<String> saveVideo(@RequestParam MultipartFile file, @RequestParam String name, @RequestParam User userId) throws IOException{
-		videoService.saveVideo(file, name, userId);
-		return ResponseEntity.ok("Video has been successfully saved");
+		return ResponseEntity.ok(videoService.saveVideo(file, name, userId));
 	}
 	
 	@GetMapping("all")
