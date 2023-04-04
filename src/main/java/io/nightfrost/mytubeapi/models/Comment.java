@@ -24,20 +24,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
+
 	@Column(columnDefinition = "LONGTEXT", nullable = false)
 	private String body;
-	
+
 	@Basic
 	private int likes;
-	
+
 	@Basic
 	private int dislikes;
-	
+
 	/*
 	 * Many Comments to One Video.
 	 * This is the owning side.
@@ -46,7 +46,7 @@ public class Comment {
     @JoinColumn(name = "video_id", referencedColumnName = "id")
     @JsonIgnoreProperties("comment")
 	private Video video;
-	
+
 	/*
 	 * Many Comments to One User
 	 */
@@ -54,13 +54,13 @@ public class Comment {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnoreProperties("comment")
 	private User user;
-	
+
 	@Basic
 	private boolean isPinned;
-	
+
 	@Basic
 	private OffsetDateTime createdAt;
-	
+
 	@Basic
 	private OffsetDateTime updatedAt;
 }

@@ -1,31 +1,17 @@
 package io.nightfrost.mytubeapi.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.multipart.MultipartFile;
 
 import io.nightfrost.mytubeapi.dto.VideoDTO;
-import io.nightfrost.mytubeapi.models.User;
-import io.nightfrost.mytubeapi.models.Video;
-import io.nightfrost.mytubeapi.repositories.CommentRepository;
-import io.nightfrost.mytubeapi.repositories.PlaylistRepository;
-import io.nightfrost.mytubeapi.repositories.UserRepository;
-import io.nightfrost.mytubeapi.repositories.VideoRepository;
 
 @SpringBootTest
 public class VideoControllerTests {
@@ -38,7 +24,7 @@ public class VideoControllerTests {
 
 	@MockBean
 	private VideoService videoService;
-	
+
 	@MockBean
 	private UserService userService;
 
@@ -57,18 +43,18 @@ public class VideoControllerTests {
 				.name(testName)
 				.userId(userId)
 				.build();
-				
+
 		//When findById is called, return expected
 		when(videoService.getVideo(2L))
 			.thenReturn(expected);
-		
+
 		VideoDTO actual = videoService.getVideo(videoId);
 		assertEquals(expected, actual);
-		
+
 		//Verify that videoRepository was called.
 		verify(videoService, times(1)).getVideo(videoId);
 	}
-	
+
 //	@Test
 //	void getVideoData() {
 //		User userData = new User();
@@ -82,9 +68,9 @@ public class VideoControllerTests {
 //		//When existsByName is called, return true
 //		when(videoRepository.existsByName(testName))
 //			.thenReturn(true);
-//		
+//
 //		assertEquals(expected, actual);
-//		
+//
 //		//Verify that videoRepository was called.
 //		verify(videoRepository, times(1)).existsByName(testName);
 //		verify(videoRepository, times(1)).findByName(testName);
@@ -94,13 +80,13 @@ public class VideoControllerTests {
 //	void getAllVideoNames() {
 //		List<String> expected = List.of("myVid", "otherVid");
 //		List<String> actual = videoService.getAllVideoNames();
-//		
+//
 //		//When getAllentryNames is called, return expected list.
 //		when(videoRepository.getAllEntryNames())
 //			.thenReturn(expected);
-//		
+//
 //		assertEquals(expected, actual);
-//		
+//
 //		//Verify that videoRepository was called.
 //		verify(videoRepository, times(1)).getAllEntryNames();
 //
@@ -112,9 +98,9 @@ public class VideoControllerTests {
 //		userData.setId(1);
 //		MultipartFile file = mock(MultipartFile.class);
 //		Video testVid = new Video(testName, file.getBytes(), userData);
-//		
+//
 //		videoService.saveVideo(file, testName, userData);
-//		
+//
 //		//Verify that videoRepository was called.
 //		verify(videoRepository, times(1)).existsByName(testName);
 //		verify(videoRepository, times(1)).saveAndFlush(testVid);

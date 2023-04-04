@@ -21,19 +21,19 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	VideoRepository videoRepository;
-	
+
 	@Autowired
 	CommentRepository commentRepository;
-	
+
 	@Autowired
 	PlaylistRepository playlistRepository;
-	
+
 	@Autowired
 	ModelMapper modelMapper;
 
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 	public List<UserDTO> getAllUsers() {
 		List<User> usersList = new ArrayList<>();
 		List<UserDTO> usersListDto = new ArrayList<>();
-		
+
 		try {
 			if (!(usersList = userRepository.getAllUsers()).isEmpty()) {
 				usersList.forEach((user) -> usersListDto.add(modelMapper.map(user, UserDTO.class)));
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
 	public UserDTO getUserById(long id) {
 		User returnUser = null;
 		UserDTO returnUserDto = null;
-		
+
 		try {
 			if ((returnUser = userRepository.getReferenceById(id)).getEmail() != null) {
 				returnUserDto = modelMapper.map(returnUser, UserDTO.class);
@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserService {
 			if (userRepository.existsById(id)) {
 				userRepository.deleteById(id);
 				return userRepository.existsById(id) ? "User not deleted..." : "User with ID: " + id.toString() + " deleted.";
-			} else {				
+			} else {
 				throw new UserNotFoundException();
 			}
 		} catch (Exception e) {

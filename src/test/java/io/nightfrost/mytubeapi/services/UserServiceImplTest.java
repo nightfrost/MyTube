@@ -1,10 +1,6 @@
 package io.nightfrost.mytubeapi.services;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -12,13 +8,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import io.nightfrost.mytubeapi.dto.UserDTO;
 import io.nightfrost.mytubeapi.models.Comment;
-import io.nightfrost.mytubeapi.models.Playlist;
-import io.nightfrost.mytubeapi.models.User;
 import io.nightfrost.mytubeapi.repositories.CommentRepository;
 import io.nightfrost.mytubeapi.repositories.PlaylistRepository;
 import io.nightfrost.mytubeapi.repositories.UserRepository;
@@ -32,7 +24,7 @@ public class UserServiceImplTest {
 		CommentRepository commentRepository = mock(CommentRepository.class);
 		PlaylistRepository playlistRepository = mock(PlaylistRepository.class);
 		UserService userService = new UserServiceImpl(userRepository, videoRepository, commentRepository, playlistRepository, null);
-		
+
 		//Test values
 		long id = 1;
 		String firstName = "John";
@@ -49,19 +41,19 @@ public class UserServiceImplTest {
 		Comment newComment1 = new Comment();
 		Comment newComment2 = new Comment();
 		List<Comment> comments = List.of(newComment1, newComment2);
-		
+
 //		@Test
 //		void getUser() {
 //			User expected = new User(id, firstName, lastName, username, password, email,
 //					phone, dob, nationality, age, createdAt, enabled);
 //			UserDTO actual = userService.getUserById(id);
-//			
+//
 //			//When getReferenceById is called, return expected
 //			when(userRepository.getReferenceById(id))
 //				.thenReturn(expected);
-//			
+//
 //			assertEquals(expected, actual);
-//			
+//
 //			//Verify the call has been made
 //			verify(userRepository, times(1)).getReferenceById(id);
 //		}

@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class MyTubeApplication extends SpringBootServletInitializer{
-	
+
 	@Bean
 	ModelMapper modelMapper() {
 	    return new ModelMapper();
@@ -19,7 +19,7 @@ public class MyTubeApplication extends SpringBootServletInitializer{
 	public static void main(String[] args) {
 		SpringApplication.run(MyTubeApplication.class, args);
 	}
-	
+
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
@@ -32,5 +32,5 @@ public class MyTubeApplication extends SpringBootServletInitializer{
 			}
 		};
 	}
-	
+
 }

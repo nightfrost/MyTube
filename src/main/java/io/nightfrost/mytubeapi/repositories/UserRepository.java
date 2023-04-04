@@ -11,17 +11,17 @@ import io.nightfrost.mytubeapi.models.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 	User getByUsername(String username);
-	
+
 	boolean existsByUsername(String username);
-	
+
 	boolean existsByEmail(String email);
-	
+
 	@Query(nativeQuery = true, value = "SELECT username FROM myuser")
 	List<String> getAllUsernames();
-	
+
 	@Query(nativeQuery = true, value = "Select * FROM myuser")
 	List<User> getAllUsers();
-	
+
 	@Query(nativeQuery = true, value = "SELECT `user`.`id`,\r\n"
 			+ "    `user`.`created_at`,\r\n"
 			+ "    `user`.`dob`,\r\n"

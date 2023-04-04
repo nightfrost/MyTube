@@ -11,9 +11,9 @@ import io.nightfrost.mytubeapi.models.Video;
 @Repository
 public interface VideoRepository extends JpaRepository<Video, Long>{
 	Video findByName(String name);
-	
+
 	boolean existsByName(String name);
-	
+
 	@Query(nativeQuery = true, value = "SELECT name\r\n"
 			+ "FROM `mytubeJava`.`video`;\r\n"
 			+ "")

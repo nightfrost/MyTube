@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class CommentNotFoundException extends Exception{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 8806553239569349539L;
 }
