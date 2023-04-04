@@ -1,5 +1,6 @@
 io\nightfrost\mytubeapi\services\CommentServiceImplTest.class
 io\nightfrost\mytubeapi\services\UserServiceImplTest.class
-io\nightfrost\mytubeapi\services\VideoControllerTests.class
+io\nightfrost\mytubeapi\services\TestMultipartFile.class
+io\nightfrost\mytubeapi\services\VideoServiceTests.class
 io\nightfrost\mytubeapi\MyTubeApplicationTests.class
 io\nightfrost\mytubeapi\SmokeTest.class

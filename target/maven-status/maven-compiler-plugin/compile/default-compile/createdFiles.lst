@@ -15,6 +15,7 @@ io\nightfrost\mytubeapi\controllers\PlaylistController.class
 io\nightfrost\mytubeapi\models\Playlist.class
 io\nightfrost\mytubeapi\controllers\HelperController.class
 io\nightfrost\mytubeapi\services\UserService.class
+io\nightfrost\mytubeapi\dto\VideoDataDTO$VideoDataDTOBuilder.class
 io\nightfrost\mytubeapi\services\PlaylistServiceImpl.class
 io\nightfrost\mytubeapi\dto\UserDTO.class
 io\nightfrost\mytubeapi\dto\VideoDataDTO.class
@@ -33,4 +34,5 @@ io\nightfrost\mytubeapi\repositories\VideoRepository.class
 io\nightfrost\mytubeapi\services\VideoService.class
 io\nightfrost\mytubeapi\models\Video.class
 io\nightfrost\mytubeapi\exceptions\VideoAlreadyExistsException.class
+io\nightfrost\mytubeapi\models\User$UserBuilder.class
 io\nightfrost\mytubeapi\services\UserServiceImpl.class
