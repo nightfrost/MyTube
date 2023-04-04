@@ -28,7 +28,7 @@ public class CommentServiceImplTest {
 
 	//Test values for comment
 	private long comment_id = 2;
-	private String body = "Test comment";
+	private String body = "test comment";
 	private int likes = 2;
 	private int dislikes = 1;
 	private Video video = new Video();
