@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: io.nightfrost.mytubeapi.services.VideoServiceTests
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.543 s - in io.nightfrost.mytubeapi.services.VideoServiceTests

@@ -21,30 +21,30 @@ import lombok.AllArgsConstructor;
 @RequestMapping(HelperController.BASE_ENDPOINT + "comment")
 @AllArgsConstructor
 public class CommentController {
-	
+
 	@Autowired
 	private CommentService commentService;
-	
+
 	@GetMapping(value = "/video/{id}")
 	public ResponseEntity<List<Comment>> getAllCommentsByVideoId(@PathVariable long id) {
 		return ResponseEntity.ok(commentService.getAllCommentsByVideoId(id));
 	}
-	
+
 	@GetMapping(value = "{id}")
 	public ResponseEntity<Comment> getCommentById(@PathVariable long id) {
 		return ResponseEntity.ok(commentService.getCommentById(id));
 	}
-	
+
 	@PostMapping()
 	public ResponseEntity<Comment> addComment(@RequestBody Comment newComment) {
 		return ResponseEntity.ok(commentService.addComment(newComment));
 	}
-	
+
 	@PutMapping(value = "{id}")
 	public ResponseEntity<Comment> updateComment(@RequestBody Comment updatedComment, @PathVariable long id) {
 		return ResponseEntity.ok(commentService.updateComment(id, updatedComment));
 	}
-	
+
 	@DeleteMapping(value = "{id}")
 	public ResponseEntity<String> deleteComment(@PathVariable long id) {
 		return ResponseEntity.ok(commentService.deleteComment(id));

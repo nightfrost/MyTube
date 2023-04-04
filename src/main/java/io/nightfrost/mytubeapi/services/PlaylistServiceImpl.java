@@ -16,20 +16,20 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class PlaylistServiceImpl implements PlaylistService{
-	
+
 	@Autowired
 	PlaylistRepository playlistRepository;
-	
+
 	@Autowired
 	VideoRepository videoRepository;
-	
+
 	@Autowired
 	UserRepository userRepository;
 
 	@Override
 	public List<Playlist> getAllPlaylists() {
 		List<Playlist> returnList = new ArrayList<>();
-		
+
 		try {
 			if(!(returnList = playlistRepository.findAll()).isEmpty()) {
 				return returnList;
@@ -46,7 +46,7 @@ public class PlaylistServiceImpl implements PlaylistService{
 	@Override
 	public Playlist getPlaylistById(long id) {
 		Playlist returnPlaylist = new Playlist();
-		
+
 		try {
 			if ((returnPlaylist = playlistRepository.getReferenceById(id)) != null) {
 				return returnPlaylist;
@@ -65,7 +65,7 @@ public class PlaylistServiceImpl implements PlaylistService{
 		Playlist returnPlaylist = new Playlist();
 
 		//for simplying creating a playlist, nothing needs to be checked.
-		//You are fully able to have two identical lists, 
+		//You are fully able to have two identical lists,
 		//(except id, but hibernate handles that.)
 		try {
 			return playlistRepository.saveAndFlush(playlist);
@@ -79,7 +79,7 @@ public class PlaylistServiceImpl implements PlaylistService{
 	@Override
 	public Playlist updatePlaylist(long id, Playlist playlist) {
 		Playlist returnPlaylist = new Playlist();
-		
+
 		try {
 			if ((returnPlaylist = playlistRepository.getReferenceById(id)) == null) {
 				throw new PlaylistNotFoundException();
@@ -110,5 +110,5 @@ public class PlaylistServiceImpl implements PlaylistService{
 			return null;
 		}
 	}
-	
+
 }

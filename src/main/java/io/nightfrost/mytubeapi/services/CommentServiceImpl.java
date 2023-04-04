@@ -22,13 +22,13 @@ public class CommentServiceImpl implements CommentService{
 
 	@Autowired
 	CommentRepository commentRepository;
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	VideoRepository videoRepository;
-	
+
 	@Override
 	public List<Comment> getAllCommentsByVideoId(long id) {
 		List<Comment> returnCommentList = new ArrayList<>();

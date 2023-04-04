@@ -9,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import io.nightfrost.mytubeapi.dto.VideoDTO;
 import io.nightfrost.mytubeapi.dto.VideoDataDTO;
-import io.nightfrost.mytubeapi.exceptions.UserNotFoundException;
 import io.nightfrost.mytubeapi.exceptions.VideoAlreadyExistsException;
 import io.nightfrost.mytubeapi.exceptions.VideoNotFoundException;
 import io.nightfrost.mytubeapi.models.User;
@@ -22,7 +21,7 @@ import lombok.AllArgsConstructor;
 public class VideoServiceImpl implements VideoService {
 
 	private VideoRepository videoRepository;
-	
+
 	private ModelMapper modelMapper;
 
 	@Deprecated
@@ -67,16 +66,16 @@ public class VideoServiceImpl implements VideoService {
 	public List<String> getAllVideoNames() {
 		return videoRepository.getAllEntryNames();
 	}
-	
+
 	@Override
 	public VideoDataDTO getVideoData(long videoId) {
 		Video returnVideo = new Video();
 		VideoDataDTO returnVideoDataDTO = new VideoDataDTO();
-		
+
 		try {
 			if ((returnVideo = videoRepository.getReferenceById(videoId)) != null) {
 				returnVideoDataDTO = modelMapper.map(returnVideo, VideoDataDTO.class);
-				
+
 				return returnVideoDataDTO;
 			} else {
 				throw new VideoNotFoundException();
@@ -84,7 +83,7 @@ public class VideoServiceImpl implements VideoService {
 		} catch (Exception e) {
 			System.out.println("Retrieval of Video(s) failed. Returning empty object. See stack trace.");
 			System.out.println(e.getMessage());
-			
+
 			return returnVideoDataDTO;
 		}
 	}
@@ -93,11 +92,11 @@ public class VideoServiceImpl implements VideoService {
 	public VideoDTO getVideo(long videoId) {
 		VideoDTO returnVideoDTO = null;
 		Video returnVideo = null;
-		
+
 		try {
 			if ((returnVideo = videoRepository.getReferenceById(videoId)) != null) {
 				returnVideoDTO = modelMapper.map(returnVideo, VideoDTO.class);
-				
+
 				return returnVideoDTO;
 			} else {
 				throw new VideoNotFoundException();

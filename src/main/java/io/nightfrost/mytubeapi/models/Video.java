@@ -15,8 +15,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,18 +36,18 @@ public class Video {
 
 	@Lob
 	private byte[] data;
-	
+
 	/*
 	 * One Video has Many Comments
 	 * NOT owning side.
 	 */
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "video", cascade = CascadeType.ALL)
 	private Set<Comment> comments;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "playlist_id", referencedColumnName = "id")
 	private Playlist playlist;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;
@@ -59,7 +57,7 @@ public class Video {
 		this.data = bytes;
 		this.user = userId;
 	}
-	
+
 	/**
 	 * @return Returns true or false, depending on if ALL fields hold data.
 	 */

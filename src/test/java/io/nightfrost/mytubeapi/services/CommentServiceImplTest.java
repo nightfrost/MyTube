@@ -19,16 +19,16 @@ import io.nightfrost.mytubeapi.repositories.UserRepository;
 import io.nightfrost.mytubeapi.repositories.VideoRepository;
 
 public class CommentServiceImplTest {
-	
+
 	//mock repository and use it in service.
 	CommentRepository commentRepository = mock(CommentRepository.class);
 	VideoRepository videoRepository = mock(VideoRepository.class);
 	UserRepository userRepository = mock(UserRepository.class);
 	CommentService commentService = new CommentServiceImpl(commentRepository, userRepository, videoRepository);
-	
+
 	//Test values for comment
 	private long comment_id = 2;
-	private String body = "Test comment";
+	private String body = "test comment";
 	private int likes = 2;
 	private int dislikes = 1;
 	private Video video = new Video();
@@ -36,7 +36,7 @@ public class CommentServiceImplTest {
 	private boolean isPinned = false;
 	private OffsetDateTime createdAtComment = OffsetDateTime.now();
 	private OffsetDateTime updatedAt = OffsetDateTime.now();
-	
+
 	//Test values for user
 	long user_id = 1;
 	String firstName = "John";
@@ -53,32 +53,32 @@ public class CommentServiceImplTest {
 	Comment newComment1 = new Comment();
 	Comment newComment2 = new Comment();
 	List<Comment> comments = List.of(newComment1, newComment2);
-	
+
 	//Test values for video
 	String videoTestName = "myVid";
-	
+
 	@Test
 	public void getCommentsByVideoId() {
 		List<Comment> expected = List.of(new Comment(comment_id, body, likes, dislikes,video, user, isPinned, createdAtComment, updatedAt),
 				new Comment(comment_id, body, likes, dislikes,video, user, isPinned, createdAtComment, updatedAt));
 		List<Comment> actual = commentService.getAllCommentsByVideoId(comment_id);
 	}
-	
+
 	@Test
 	public void getCommentById() {
 		//TODO implement
 	}
-	
+
 	@Test
 	public void addComment() {
 		//TODO implement
 	}
-	
+
 	@Test
 	public void updateComment() {
 		//TODO implement
 	}
-	
+
 	@Test
 	public void deleteComment() {
 		//TODO implement

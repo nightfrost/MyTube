@@ -25,28 +25,28 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Playlist {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
+
 	@Basic
 	@Column(length = 75, nullable = false)
 	private String playlistName;
-	
+
 	/*
 	 * @Basicc
-	 * 
+	 *
 	 * @ElementCollection(targetClass = Long.class)
-	 * 
+	 *
 	 * @CollectionTable(name = "video", joinColumns
 	 * = @JoinColumn(referencedColumnName = "id")) private Set<Video> videos;
 	 */
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "playlist", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("video")
 	private Set<Video> videos;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnoreProperties("playlist")

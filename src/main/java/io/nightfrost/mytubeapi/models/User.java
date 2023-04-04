@@ -4,9 +4,6 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.Period;
 import java.util.Set;
-import java.util.stream.Collectors;
-
-import io.nightfrost.mytubeapi.controllers.HelperController;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,8 +17,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,48 +33,48 @@ import lombok.NoArgsConstructor;
 @Builder
 @Table(name = "myuser")
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
+
 	@Column(length = 50, nullable = false)
 	private String firstName;
-	
+
 	@Column(length = 50, nullable = false)
 	private String lastName;
-	
+
 	@Column(length = 50, nullable = false, unique = true)
 	private String username;
-	
+
 	@Column(columnDefinition = "LONGTEXT", nullable = false)
 	private String password;
-	
+
 	@Column(length = 150, nullable = false, unique = true)
 	private String email;
-	
+
 	@Column(length = 50, nullable = false)
 	private String phone;
-	
+
 	@Column(nullable = false)
 	private Date dob;
-	
+
 	@Column(length = 25, nullable = false)
 	private String nationality;
-	
+
 	@Transient
 	private int age;
-	
+
 	@Column(nullable = false)
 	@JsonFormat(pattern="yyyy-mm-dd hh:mm:ss", timezone="Europe/Zagreb")
 	private Timestamp createdAt;
-	
+
 	@Column(nullable = false)
 	private boolean enabled;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Comment> comments;
-	
+
 //	@JsonGetter("comments")
 //	public Set<String> commentsGetter() {
 //		if (comments != null) {
@@ -88,10 +83,10 @@ public class User {
 //			return null;
 //		}
 //	}
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Video> videos;
-	
+
 //	@JsonGetter("videos")
 //	public Set<String> videosGetter() {
 //		if (videos != null) {
@@ -100,10 +95,10 @@ public class User {
 //			return null;
 //		}
 //	}
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Playlist> playlists;
-	
+
 //	@JsonGetter("playlists")
 //	public Set<String> playlistsGetter() {
 //		if (playlists != null) {
@@ -112,7 +107,7 @@ public class User {
 //			return null;
 //		}
 //	}
-	
+
 	public User(long id, String firstName, String lastName, String username, String password, String email,
 			String phone, Date dob, String nationality, int age, Timestamp createdAt, boolean enabled) {
 		this.id = id;
@@ -128,11 +123,11 @@ public class User {
 		this.createdAt = createdAt;
 		this.enabled = enabled;
 	}
-	
+
 	/**
 	 * <p> Method used to calculate a users age using the DOB field.
-	 * 
-	 * 
+	 *
+	 *
 	 */
 	public void calcAge() {
 		Date today = new Date(System.currentTimeMillis());

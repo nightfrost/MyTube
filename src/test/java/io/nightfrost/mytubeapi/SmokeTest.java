@@ -10,10 +10,10 @@ import io.nightfrost.mytubeapi.services.VideoService;
 
 @SpringBootTest
 public class SmokeTest {
-	
+
 	@Autowired
 	private VideoService videoService;
-	
+
 	@Test
 	public void contextLoads() throws Exception {
 		assertThat(videoService).isNotNull();

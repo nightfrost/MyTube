@@ -24,27 +24,27 @@ import lombok.AllArgsConstructor;
 public class PlaylistController {
 	@Autowired
 	PlaylistService playlistService;
-	
+
 	@GetMapping()
 	public ResponseEntity<List<Playlist>> getAllPlaylists() {
 		return ResponseEntity.ok(playlistService.getAllPlaylists());
 	}
-	
+
 	@GetMapping(value = "{id}")
 	public ResponseEntity<Playlist> getPlaylistById(@PathVariable long id) {
 		return ResponseEntity.ok(playlistService.getPlaylistById(id));
 	}
-	
+
 	@PostMapping()
 	public ResponseEntity<Playlist> addPlaylist(@Validated @RequestBody Playlist playlist) {
 		return ResponseEntity.ok(playlistService.addPlaylist(playlist));
 	}
-	
+
 	@PutMapping(value = "{id}")
 	public ResponseEntity<Playlist> updatePlaylist(@Validated @RequestBody Playlist newPlaylist, @PathVariable long id) {
 		return ResponseEntity.ok(playlistService.updatePlaylist(id, newPlaylist));
 	}
-	
+
 	@DeleteMapping(value = "{id}")
 	public ResponseEntity<String> deletePlaylist(@PathVariable long id) {
 		return ResponseEntity.ok(playlistService.deletePlaylist(id));
