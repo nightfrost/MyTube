@@ -3,9 +3,11 @@ target/classes
 target/generated-source
 target/generated-test-sources
 target/maven-archiver
+target/maven-status/*
 target/maven-status
 target/MyTube
 target/surefire-reports
+target/surefire-reports/*
 target/test-classes
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/

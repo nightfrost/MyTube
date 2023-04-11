@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: io.nightfrost.mytubeapi.services.UserServiceImplTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.037 s - in io.nightfrost.mytubeapi.services.UserServiceImplTest
