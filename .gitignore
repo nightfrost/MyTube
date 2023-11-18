@@ -1,42 +1,1 @@
-HELP.md
-target/classes
-target/generated-source
-target/generated-test-sources
-target/maven-archiver
-target/maven-status/*
-target/maven-status
-target/MyTube
-target/surefire-reports
-target/surefire-reports/*
-target/test-classes
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
-.vscode/
+HELP.mdtarget/classestarget/generated-sourcetarget/generated-test-sourcestarget/maven-archivertarget/maven-status/*target/maven-statustarget/MyTubetarget/surefire-reportstarget/surefire-reports/*target/test-classes!.mvn/wrapper/maven-wrapper.jar!**/src/main/**/target/!**/src/test/**/target/bin/**.github/### STS ###.apt_generated.classpath.factorypath.project.settings.springBeans.sts4-cache### IntelliJ IDEA ###.idea*.iws*.iml*.ipr### NetBeans ###/nbproject/private//nbbuild//dist//nbdist//.nb-gradle/build/!**/src/main/**/build/!**/src/test/**/build/### VS Code ###.vscode/
