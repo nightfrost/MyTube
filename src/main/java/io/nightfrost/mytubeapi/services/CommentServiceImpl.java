@@ -1,12 +1,5 @@
 package io.nightfrost.mytubeapi.services;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import io.nightfrost.mytubeapi.exceptions.CommentNotFoundException;
 import io.nightfrost.mytubeapi.exceptions.UserNotFoundException;
 import io.nightfrost.mytubeapi.exceptions.VideoNotFoundException;
@@ -14,20 +7,28 @@ import io.nightfrost.mytubeapi.models.Comment;
 import io.nightfrost.mytubeapi.repositories.CommentRepository;
 import io.nightfrost.mytubeapi.repositories.UserRepository;
 import io.nightfrost.mytubeapi.repositories.VideoRepository;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.BeansException;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class CommentServiceImpl implements CommentService{
 
-	@Autowired
 	CommentRepository commentRepository;
 
-	@Autowired
 	UserRepository userRepository;
 
-	@Autowired
+	final
 	VideoRepository videoRepository;
+
+	public CommentServiceImpl(CommentRepository commentRepository, UserRepository userRepository, VideoRepository videoRepository) {
+		this.commentRepository = commentRepository;
+		this.userRepository = userRepository;
+		this.videoRepository = videoRepository;
+	}
 
 	@Override
 	public List<Comment> getAllCommentsByVideoId(long id) {
@@ -46,14 +47,12 @@ public class CommentServiceImpl implements CommentService{
 	}
 
 	@Override
-	public Comment getCommentById(long id) {
+	public Comment getCommentById(long id) throws CommentNotFoundException {
 		Comment returnComment = new Comment();
 		try {
-			if ((returnComment = commentRepository.getReferenceById(id)) != null) {
-				return returnComment;
-			} else {
-				throw new CommentNotFoundException();
-			}
+			return returnComment = commentRepository.getReferenceById(id);
+		} catch (EntityNotFoundException e) {
+			throw new CommentNotFoundException();
 		} catch (Exception e) {
 			System.out.println("Retrieval of comment(s) failed. Returning empty object. See stack trace.");
 			System.out.println(e.getMessage());
@@ -81,24 +80,27 @@ public class CommentServiceImpl implements CommentService{
 	}
 
 	@Override
-	public Comment updateComment(long id, Comment newComment) {
+	public Comment updateComment(long id, Comment newComment) throws CommentNotFoundException {
 		Comment returnComment = null;
+
 		try {
-			if ((returnComment = commentRepository.getReferenceById(id)) == null) {
-				throw new CommentNotFoundException();
-			} else {
-				returnComment = (Comment) HelperService.partialUpdate(returnComment, newComment);
-				commentRepository.save(returnComment);
-				return returnComment;
-			}
+			returnComment = commentRepository.getReferenceById(id);
+			HelperService.partialUpdate(returnComment, newComment);
+			commentRepository.save(returnComment);
+
+			return returnComment;
+		} catch (EntityNotFoundException e) {
+			throw new CommentNotFoundException();
 		} catch (BeansException e) {
-			System.out.printf("Failed to copy values into comment object... Returning empty object\nPrinting message...");
+			System.out.print("Failed to copy values into comment object, save failed... Returning empty object\nPrinting message...");
 			System.out.println(e.getMessage());
-			return returnComment = null;
+
+			return returnComment;
 		} catch (Exception e) {
 			System.out.println("Saving user failed. Returning empty object. See stack trace.");
 			System.out.println(e.getMessage());
-			return returnComment = null;
+
+			return returnComment;
 		}
 	}
 

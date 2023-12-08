@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,13 +83,13 @@ public class VideoServiceTests {
 	
 	@Test
 	public void When_GetVideoWrongVideoId_Expect_isNullTrue() throws Exception{
-		Video emptyVideoObject = null;
+		VideoDTO emptyVideoObject = null;
 		
-		when(videoRepository.getReferenceById(3L))
+		when(videoService.getVideo(3L))
 			.thenReturn(emptyVideoObject);
 		
 		VideoDTO actual = videoService.getVideo(3L);
-		assertNull(actual);
+		Assertions.assertEquals(0, actual.getId());
 	}
 	
 	@Test

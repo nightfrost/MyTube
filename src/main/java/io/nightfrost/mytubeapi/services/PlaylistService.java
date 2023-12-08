@@ -1,8 +1,8 @@
 package io.nightfrost.mytubeapi.services;
 
-import java.util.List;
-
 import io.nightfrost.mytubeapi.models.Playlist;
+
+import java.util.List;
 
 public interface PlaylistService {
 

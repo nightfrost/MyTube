@@ -1,9 +1,9 @@
 package io.nightfrost.mytubeapi.services;
 
-import java.util.List;
-
 import io.nightfrost.mytubeapi.dto.UserDTO;
 import io.nightfrost.mytubeapi.models.User;
+
+import java.util.List;
 
 public interface UserService {
 	List<UserDTO> getAllUsers();
